@@ -17,7 +17,7 @@ pipeline {
             sh 'rm -rf *'  // Clean workspace
             git branch: 'main', 
                 credentialsId: 'your-git-credentials-id', 
-                url: 'https://github.com/divyasatpute/Day-18-valentine-day-project.git'
+                url: 'https://github.com/Prasadk1618/valentine-day-project.git'
             sh 'ls -lah'  // Verify that Dockerfile is present
         }
     }
@@ -45,7 +45,7 @@ pipeline {
     steps {
         script {
             withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                sh 'docker build -t divyasatpute/valentine:latest . --no-cache'
+                sh 'docker build -t prasadk/valentine:latest . --no-cache'
             }
         }
     }
@@ -58,7 +58,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh 'docker push divyasatpute/valentine:latest'
+                        sh 'docker push prasadk/valentine:latest'
                     }
                 }
             }
@@ -66,7 +66,7 @@ pipeline {
 
         stage('Deploy to Container') {
             steps {
-                sh 'docker run -d --name valentine -p 8081:80 divyasatpute/valentine:latest'
+                sh 'docker run -d --name valentine -p 8081:80 prasadk/valentine:latest'
             }
         }
     }
